@@ -37,18 +37,20 @@ rspec .
 * TDD Methodology
 
 * MODEL DESIGN
-I have 3 main models `robot`, `configuration` and `shipment`
+  I have 3 main models `robot`, `configuration` and `shipment`
 
-*Robot* has two attributes, `name` and `statuses`. The reasons why i choose to use array data type on `statuses` is because I think its better to just store array of interger/string and utilize postgres functionality in storing data rather than creating another database model and doing a join call to a thousands of records.
+  *Robot* has two attributes, `name` and `statuses`. The reasons why i choose to use array data type on `statuses` is because I think its better to just store array of interger/string and utilize postgres functionality in storing data rather than creating another database model and doing a join call to a thousands of records.
 
-*Configuration*
+  *Configuration*
 
-*Shipments* I created shipments because of the requirement that it would need to create shipments on the last action
+  *Shipments* I created shipments because of the requirement that it would need to create shipments on the last action
 
 * Implementation of API
-I used [Active Model Serializer](https://github.com/rails-api/active_model_serializers/tree/0-10-stable) to  bring convention in JSON generation.
+  I used [Active Model Serializer](https://github.com/rails-api/active_model_serializers/tree/0-10-stable) to  bring convention in JSON generation.
 
 * Controller
-I used kaminari for pagination or batches accepting two different `params[:per_page]` or `params[:batches]` I'm not sure which the FE will use on this. 
+  I used kaminari for pagination or batches accepting two different `params[:per_page]` or `params[:batches]` I'm not sure which the FE will use on this.
+
+  No need for `.json` is needed when accessing the URL for the FE
 
 * No versioning was mentioned on the specs(tho i really want to implement versioning).
