@@ -5,7 +5,7 @@ RSpec.describe ShipmentsController, type: :controller do
     let(:robot) { create(:robot) }
     let(:robot_params) { [robot.id] }
     it 'should create shipments based on robot_ids' do
-      post :create, params: { recycleRobots: robot_params }
+      post :create, params: { shipmentRobots: robot_params }
       expect(response).to be_success
       expect(Shipment.count).to eq(robot_params.count)
     end

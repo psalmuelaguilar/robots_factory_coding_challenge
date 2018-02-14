@@ -66,26 +66,27 @@ RSpec.describe RobotsController, type: :controller do
   end
 
   describe 'PUT #recycle' do
+    let(:robot_params) do
+      {
+        recycleRobots: [robot.id]
+      }
+    end
     context 'all robot status are recyclable' do
       let(:robot) { create(:robot) }
-      let(:robot_params) do
-        {
-          recycleRobots: [1]
-        }
-      end
       it 'should put the robots statuses to recycle' do
-        put :recycle_robot, params: robot_params
+        put :recycle, params: robot_params
         expect(response).to be_success
-        expect(robot).to eq(['recycle'])
+        expect(robot.reload.statuses).to eq(['recycle'])
       end
     end
 
     context 'No robots are recyclable' do
-      let(:robot) { create(:robot) }
+      let(:robot) { create(:robot, statuses: []) }
+
       it 'should not update the robot status' do
-        put :recycle_robot, params: recycle_params
+        put :recycle, params: robot_params
         expect(response).to be_success
-        expect(robot.status).to eq([])
+        expect(robot.reload.statuses).to eq([])
       end
     end
   end
