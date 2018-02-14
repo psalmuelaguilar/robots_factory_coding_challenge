@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     end
 
     collection do
-      post :recycle
+      put :recycle
     end
   end
 
