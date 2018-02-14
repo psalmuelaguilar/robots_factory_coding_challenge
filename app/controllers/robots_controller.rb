@@ -1,7 +1,7 @@
 class RobotsController < ApplicationController
   def index
     robots = Robot.includes(:configuration).page(params[:page]).per(per_batch)
-    render json: robots, each_serializer: RobotSerializer
+    render json: robots, each_serializer: RobotSerializer, root: 'data'
   end
 
   def recycle
@@ -13,7 +13,7 @@ class RobotsController < ApplicationController
   private
 
   def per_batch
-    per_batch = params[:page] || params[:batches] || 10
+    per_batch = params[:per_page] || params[:batches] || 10
   end
 
 end

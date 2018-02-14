@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe RobotsController, type: :controller do
   describe 'GET index' do
-    let(:robot) { create(:robot) }
-    let(:configuration) { create(:configuration, robot_id: robot.id) }
+    let!(:robot) { create(:robot) }
+    let!(:configuration) { create(:configuration, robot_id: robot.id) }
     let(:robot_pattern) do
       {
         id: robot.id,
-        name: Robot,
+        name: String,
         configuration: {
-          hasSentience: Boolean,
-          hasWheels: Boolean,
-          hasTracks: Boolean,
+          hasSentience: configuration.has_sentience,
+          hasWheels: configuration.has_wheels,
+          hasTracks: configuration.has_tracks,
           numberOfRotors: Integer,
           colour: String
         },
@@ -28,17 +28,17 @@ RSpec.describe RobotsController, type: :controller do
     end
 
     context 'has batch params' do
-      let(:robot_2) { create(:robot) }
-      let(:configuration_2) { create(:configuration, robot_id: robot_2.id) }
+      let!(:robot_2) { create(:robot) }
+      let!(:configuration_2) { create(:configuration, robot_id: robot_2.id) }
 
       let(:robot_pattern_2) do
         {
           id: robot_2.id,
-          name: Robot,
+          name: String,
           configuration: {
-            hasSentience: Boolean,
-            hasWheels: Boolean,
-            hasTracks: Boolean,
+            hasSentience: configuration.has_sentience,
+            hasWheels: configuration.has_wheels,
+            hasTracks: configuration.has_tracks,
             numberOfRotors: Integer,
             colour: String
           },
@@ -47,9 +47,9 @@ RSpec.describe RobotsController, type: :controller do
       end
 
       it 'gets all robots with batches' do
-        get :index, params: { page: 2, limit: 1}
+        get :index, params: { batches: 1, page: 2}
         expect(response).to be_success
-        expect(response.body).to match_json_expression(data: [robot_pattern])
+        expect(response.body).to match_json_expression(data: [robot_pattern_2])
       end
     end
   end
